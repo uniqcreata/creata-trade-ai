@@ -1,0 +1,11 @@
+{
+  "name": "creata-bot",
+  "version": "1.0.0",
+  "scripts": {
+    "nano": "nodemon --config nano.json"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
+}

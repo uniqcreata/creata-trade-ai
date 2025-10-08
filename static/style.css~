@@ -1,0 +1,11 @@
+body { font-family: Arial, sans-serif; background:#f4f6f9; margin:0; padding:20px; color:#222; }
+header { text-align:center; margin-bottom:20px; }
+.layout { display:flex; gap:20px; justify-content:center; }
+.left, .right { background:#fff; padding:15px; border-radius:8px; box-shadow:0 4px 12px rgba(0,0,0,0.06); width:420px; }
+.box { height:300px; overflow:auto; border:1px solid #e6e6e6; padding:8px; border-radius:6px; background:#fafafa; }
+.input-row { display:flex; gap:8px; margin-top:8px; }
+.input-row input { flex:1; padding:8px; border:1px solid #ddd; border-radius:4px; }
+.input-row button { padding:8px 12px; border:none; background:#246af3; color:white; border-radius:4px; cursor:pointer; }
+.trade-panel input, .trade-panel select { width:100%; padding:8px; margin:6px 0; border:1px solid #ddd; border-radius:4px; }
+button.danger { background:#e74c3c; color:white; border:none; padding:8px 12px; border-radius:4px; cursor:pointer; margin-top:8px; }
+pre { white-space:pre-wrap; word-break:break-word; }

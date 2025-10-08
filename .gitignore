@@ -1,0 +1,35 @@
+# Python caches
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.log
+
+# Virtual environments
+venv/
+botenv/
+.env
+.env.*
+.env.local
+
+# Node modules
+node_modules/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Build and deployment
+*.zip
+*.tar.gz
+*.egg-info/
+
+# SQLite and JSON data files
+*.db
+*.sqlite3
+trades.json
+signals.db
+
+# IDE settings
+.vscode/
+.idea/

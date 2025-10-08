@@ -1,0 +1,21 @@
+```yaml
+# render.yaml
+# Defines the Render service for Creata Trading Assistant
+
+services:
+  - type: web
+    name: creata-bot
+    env: python
+    plan: free
+    buildCommand: |
+      pip install --upgrade pip
+      pip install -r requirements.txt
+    startCommand: gunicorn app:app
+    envVars:
+      - key: FLASK_DEBUG
+        value: false
+      - key: OPENAI_MODEL
+        value: gpt-4o-mini
+      - key: OPENAI_API_KEY
+        sync: false  # Set manually in Render dashboard
+```

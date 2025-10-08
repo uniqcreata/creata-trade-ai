@@ -1,0 +1,14 @@
+ccxt
+flask
+flask-cors
+requests
+pandas
+numpy
+ta
+python-dotenv
+gunicorn
+yfinance
+python-binance
+alpha_vantage
+pybit
+openai

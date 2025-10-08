@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>📜 Trade Journal</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>📜 Trade Journal</h1>
+    <a href="/" class="btn-secondary">⬅ Back to Dashboard</a>
+
+    {% if trades %}
+    <table>
+      <thead>
+        <tr>
+          <th>Symbol</th>
+          <th>Signal</th>
+          <th>Price</th>
+          <th>RSI</th>
+          <th>EMA</th>
+          <th>MACD</th>
+          <th>Take Profit</th>
+          <th>Stop Loss</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for trade in trades %}
+        <tr>
+          <td>{{ trade.symbol }}</td>
+          <td>{{ trade.signal }}</td>
+          <td>{{ trade.price }}</td>
+          <td>{{ trade.rsi }}</td>
+          <td>{{ trade.ema }}</td>
+          <td>{{ trade.macd }}</td>
+          <td>{{ trade.take_profit }}</td>
+          <td>{{ trade.stop_loss }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+    <p>No trades recorded yet.</p>
+    {% endif %}
+  </div>
+</body>
+</html>

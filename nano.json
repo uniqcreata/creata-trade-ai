@@ -1,0 +1,6 @@
+{
+  "watch": ["app.py", "trading.py", "templates/**/*", "static/**/*"],
+  "ext": "py,html,js,css,json",
+  "exec": "python3 app.py"
+}
+
