@@ -1,165 +1,46 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Creata AI Trade Assistant</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <style>
-    body {
-      font-family: 'Inter', sans-serif;
-      background: #0e1117;
-      color: #e5e5e5;
-      margin: 0;
-      padding: 0;
-    }
-    header {
-      background: #111827;
-      padding: 1rem 2rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 1px solid #1f2937;
-    }
-    header h1 {
-      margin: 0;
-      font-size: 1.5rem;
-      color: #22c55e;
-    }
-    #search-bar {
-      display: flex;
-      align-items: center;
-    }
-    #symbol-input {
-      padding: 0.5rem 1rem;
-      border-radius: 6px 0 0 6px;
-      border: 1px solid #374151;
-      background: #1f2937;
-      color: #fff;
-      outline: none;
-      width: 180px;
-    }
-    #search-btn {
-      padding: 0.5rem 1rem;
-      background: #22c55e;
-      border: none;
-      color: white;
-      font-weight: bold;
-      border-radius: 0 6px 6px 0;
-      cursor: pointer;
-    }
-    main {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 2rem;
-    }
-    canvas {
-      max-width: 100%;
-      background: #1f2937;
-      border-radius: 10px;
-      padding: 1rem;
-      margin-top: 1rem;
-    }
-    #signal-output {
-      margin-top: 2rem;
-      background: #111827;
-      border: 1px solid #22c55e;
-      border-radius: 8px;
-      padding: 1rem;
-      width: 100%;
-      max-width: 700px;
-    }
-    #ai-response {
-      margin-top: 1rem;
-      color: #93c5fd;
-      font-style: italic;
-    }
-    footer {
-      text-align: center;
-      padding: 1rem;
-      font-size: 0.9rem;
-      border-top: 1px solid #1f2937;
-      color: #6b7280;
-    }
-  </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Creata Trade AI</title>
+  <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
-  <header>
+  <div class="container">
     <h1>Creata Trade AI</h1>
-    <div id="search-bar">
-      <input id="symbol-input" placeholder="e.g. BTC/USDT or EUR/USD" />
-      <button id="search-btn">Analyze</button>
+
+    <!-- Search / Trade Signal -->
+    <div class="input-box">
+      <input type="text" id="symbol" placeholder="Enter symbol (e.g. BTC/USDT, EURUSD)">
+      <select id="market_type">
+        <option value="crypto">Crypto</option>
+        <option value="forex">Forex</option>
+      </select>
+      <button onclick="getSignal()">Get Signal</button>
     </div>
-  </header>
 
-  <main>
-    <canvas id="priceChart" width="800" height="400"></canvas>
-
+    <!-- Signal Display -->
     <div id="signal-output">
-      <h2>📊 Trade Signal</h2>
-      <p id="signal-text">Enter a pair to get started.</p>
-      <p id="ai-response"></p>
+      <h2>Signal Output</h2>
+      <p id="signal-text">No signal yet.</p>
+      <p id="tp-sl"></p>
+      <p id="timestamp"></p>
     </div>
-  </main>
 
-  <footer>
-    © 2025 Creata AI Trade Assistant — Powered by Flask, Binance, and Ollama
-  </footer>
+    <!-- AI Chat -->
+    <div class="chat-box">
+      <h2>Ask Creata AI</h2>
+      <textarea id="ai-message" placeholder="Ask me anything about your trade..."></textarea>
+      <select id="ai-model">
+        <option value="ollama">Ollama</option>
+        <option value="openai">OpenAI</option>
+      </select>
+      <button onclick="askAI()">Send</button>
+      <div id="ai-response"></div>
+    </div>
+  </div>
 
-  <script>
-    const ctx = document.getElementById('priceChart').getContext('2d');
-    let chart;
-
-    document.getElementById('search-btn').addEventListener('click', async () => {
-      const symbol = document.getElementById('symbol-input').value.trim();
-      if (!symbol) return alert('Please enter a pair like BTC/USDT or EUR/USD');
-
-      const res = await fetch('/analyze', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({symbol})
-      });
-      const data = await res.json();
-
-      document.getElementById('signal-text').innerHTML = `
-        <b>Pair:</b> ${symbol}<br>
-        <b>Signal:</b> ${data.signal}<br>
-        <b>Take Profit:</b> ${data.take_profit}<br>
-        <b>Stop Loss:</b> ${data.stop_loss}
-      `;
-
-      if (data.ai_reply) {
-        document.getElementById('ai-response').textContent = data.ai_reply;
-      }
-
-      if (chart) chart.destroy();
-      chart = new Chart(ctx, {
-        type: 'line',
-        data: {
-          labels: data.timestamps,
-          datasets: [{
-            label: `${symbol} Price`,
-            data: data.prices,
-            borderColor: '#22c55e',
-            tension: 0.2,
-            fill: false
-          }]
-        },
-        options: {
-          scales: {
-            x: { ticks: { color: '#9ca3af' } },
-            y: { ticks: { color: '#9ca3af' } }
-          },
-          plugins: {
-            legend: { labels: { color: '#e5e5e5' } }
-          }
-        }
-      });
-    });
-  </script>
+  <script src="/static/script.js"></script>
 </body>
 </html>
-```
